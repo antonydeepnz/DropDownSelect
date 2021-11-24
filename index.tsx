@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { DropDownSelect } from 'search-dropdown-select';
+
+import { DropDownSelect } from 'search';
 
 interface AppProps {}
 interface AppState {}
