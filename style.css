@@ -11,10 +11,15 @@ p {
 .dropdownSelectWrapper {
   box-sizing: border-box;
   width: fit-content;
-  max-height: fit-content;
+  max-height: 88px;
   background: #ffffff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 2px 24px rgba(0, 0, 0, 0.16);
   border-radius: 12px;
+  transition: max-height 0.15s ease-in;
+}
+
+.dropdownSelectWrapperActive {
+  max-height: 300px;
 }
 
 .dropdownSelectInputWrapper {
@@ -55,7 +60,7 @@ p {
   z-index: 2;
   display: block;
   width: 100%;
-  max-height: 183px;
+  max-height: 200px;
   box-sizing: border-box;
   padding: 0;
   margin-left: -24px;

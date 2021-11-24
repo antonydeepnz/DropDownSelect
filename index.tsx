@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 
 import { DropDownSelect } from './search';
@@ -17,9 +17,16 @@ const options = [
 ];
 
 const App = () => {
+  const [value, setValue] = useState('');
   return (
     <div className="wrapper">
-      <DropDownSelect caption="Модель" options={options} placeholder="Любая" />
+      <DropDownSelect
+        caption="Модель"
+        value={value}
+        options={options}
+        placeholder="Любая"
+        onChange={setValue}
+      />
     </div>
   );
 };

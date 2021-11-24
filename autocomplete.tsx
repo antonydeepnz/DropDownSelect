@@ -1,15 +1,13 @@
 import React, { useEffect, FC } from 'react';
+import cn from 'classnames';
 
-import { getScroll, usePrevious } from './helpers';
-
-export const Autocomplete: FC<any> = ({ options }) => {
+export const Autocomplete: FC<any> = ({ options, onSelect }) => {
   // const prevIndex = usePrevious(highlightedItem);
 
   return (
     <ul
       // ref={ref}
-      className="autocomplete"
-      data-test-id="autocomplete"
+      className={cn('autocomplete')}
       role="listbox"
       tabIndex={-1}
     >
@@ -19,7 +17,7 @@ export const Autocomplete: FC<any> = ({ options }) => {
           // aria-selected={highlightedItem === index}
           className={'option'}
           // data-test-id={`autocomplete-${index}`}
-          onClick={() => {}}
+          onClick={() => onSelect(id)}
           role="option"
         >
           {name}
