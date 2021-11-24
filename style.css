@@ -9,8 +9,9 @@ p {
 }
 
 .dropdownSelectWrapper {
-  width: 100%;
-  max-height: 88px;
+  box-sizing: border-box;
+  width: fit-content;
+  max-height: fit-content;
   background: #ffffff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 2px 24px rgba(0, 0, 0, 0.16);
   border-radius: 12px;
@@ -21,12 +22,78 @@ p {
   padding: 24px;
 }
 
+.dropdownSelectInput {
+  display: none;
+  outline: none;
+  border: none;
+}
+
+.dropdownSelectInput[aria-selected='true'] {
+  display: block;
+}
+
 .dropdownSelectInputCaption {
+  margin: 0;
   font-size: 13px;
   line-height: 18px;
   color: #6d7986;
 }
 
 .dropdownSelectInputPlaceholder {
-  
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #6d7986;
+}
+
+.dropdownSelectInputPlaceholderHided {
+  display: none;
+}
+
+.autocomplete {
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-height: 183px;
+  box-sizing: border-box;
+  padding: 0;
+  margin-left: -24px;
+  background: transparent;
+  list-style-type: none;
+  outline: none;
+  overflow-y: auto;
+}
+
+.option {
+  position: relative;
+  display: list-item;
+  min-height: 40px;
+  box-sizing: border-box;
+  padding: 10px 5px;
+  padding-left: 30px;
+  cursor: pointer;
+  outline: none;
+}
+
+.option[aria-selected='true'] {
+  background-color: rgba(11, 31, 53, 0.08);
+}
+
+.option[aria-selected='true']::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 30px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  content: '\2022';
+}
+
+.option:focus:not([aria-selected='true']),
+.option:hover:not([aria-selected='true']) {
+  background-color: rgba(11, 31, 53, 0.03);
 }
