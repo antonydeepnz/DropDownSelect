@@ -3,8 +3,30 @@ p {
   font-family: Lato;
 }
 
+.wrapper {
+  height: 88px;
+  width: 150px;
+}
+
 .dropdownSelectWrapper {
+  width: 100%;
+  max-height: 88px;
   background: #ffffff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 2px 24px rgba(0, 0, 0, 0.16);
   border-radius: 12px;
+}
+
+.dropdownSelectInputWrapper {
+  width: 100%;
+  padding: 24px;
+}
+
+.dropdownSelectInputCaption {
+  font-size: 13px;
+  line-height: 18px;
+  color: #6d7986;
+}
+
+.dropdownSelectInputPlaceholder {
+  
 }
