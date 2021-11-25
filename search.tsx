@@ -24,8 +24,7 @@ export const DropDownSelect: FC<IProps> = ({
   const [autocomplete, setAutocomplete] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    // event.stopPropagation();
+  const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -79,7 +78,8 @@ export const DropDownSelect: FC<IProps> = ({
           className={cn(
             'dropdownSelectInputPlaceholder',
             {
-              dropdownSelectInputPlaceholderHided: selected && displayedValue,
+              dropdownSelectInputPlaceholderHided:
+                autocomplete && displayedValue,
             },
             { dropdownSelectInputPlaceholderValue: displayedValue }
           )}

@@ -22,11 +22,17 @@ p {
 }
 
 .dropdownSelectInputWrapper {
+  position: relative;
   width: 100%;
   padding: 24px;
 }
 
 .dropdownSelectInput {
+  position: absolute;
+  top: 44px;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 22px;
   display: none;
   outline: none;
   border: none;
@@ -44,11 +50,14 @@ p {
 }
 
 .dropdownSelectInputPlaceholder {
+  position: absolute;
+  top: 44px;
   margin: 0;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
   color: #6d7986;
+  user-select: none;
 }
 
 .dropdownSelectInputPlaceholderHided {
@@ -65,7 +74,7 @@ p {
   width: 100%;
   max-height: 200px;
   box-sizing: border-box;
-  margin: 0;
+  margin-top: 12px;
   padding: 0;
   background: transparent;
   list-style-type: none;
@@ -78,22 +87,21 @@ p {
 }
 
 .autocomplete::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
 }
 
 .autocomplete::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .option {
   position: relative;
   display: list-item;
-  min-height: 40px;
+  height: 30px;
   box-sizing: border-box;
-  padding: 10px 5px;
-  padding-left: 30px;
+  padding: 0 0 0 24px;
   cursor: pointer;
   outline: none;
 }
