@@ -20,7 +20,8 @@ export const DropDownSelect: FC<IProps> = ({
   options,
   onChange,
 }) => {
-  const [selected, setSelected] = useState(false);
+  const [focused, setFocused] = useState<boolean>(false);
+  const [highlightedSuggestion, setHighlightedSuggestion] = useState<number>(0);
   const [autocomplete, setAutocomplete] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +29,7 @@ export const DropDownSelect: FC<IProps> = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
-    setSelected(true);
+    setFocused(true);
   };
 
   const handleChange = (event) => {
@@ -46,7 +47,7 @@ export const DropDownSelect: FC<IProps> = ({
   const handleSelect = useCallback(
     (id: string) => () => {
       onChange(id);
-      setSelected(false);
+      setFocused(false);
       setAutocomplete('');
     },
     []
@@ -57,10 +58,27 @@ export const DropDownSelect: FC<IProps> = ({
     [value]
   );
 
+  const handleSuggestionsSelect = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.keyCode === 13) {
+        onChange(highlightedSuggestion);
+      }
+
+      if (event.keyCode === 38) {
+        setHighlightedSuggestion((prev) => prev - 1);
+      }
+
+      if (event.keyCode === 40) {
+        setHighlightedSuggestion((prev) => prev + 1);
+      }
+    },
+    [highlightedSuggestion]
+  );
+
   return (
     <div
       className={cn('dropdownSelectWrapper', {
-        dropdownSelectWrapperActive: selected,
+        dropdownSelectWrapperActive: focused,
       })}
     >
       <div className={cn('dropdownSelectInputWrapper')} onClick={handleClick}>
@@ -69,17 +87,22 @@ export const DropDownSelect: FC<IProps> = ({
         <input
           ref={inputRef}
           type="text"
-          aria-selected={selected}
+          aria-selected={focused}
           value={autocomplete}
           className={cn('dropdownSelectInput')}
           onChange={handleChange}
+          onKeyDown={handleSuggestionsSelect}
         />
         <p
           className={cn(
             'dropdownSelectInputPlaceholder',
             {
+              dropdownSelectInputPlaceholderBlured:
+                !value || (!autocomplete && focused),
+            },
+            {
               dropdownSelectInputPlaceholderHided:
-                autocomplete && displayedValue,
+                focused && autocomplete && displayedValue,
             },
             { dropdownSelectInputPlaceholderValue: displayedValue }
           )}
@@ -87,8 +110,12 @@ export const DropDownSelect: FC<IProps> = ({
           {displayedValue || placeholder}
         </p>
       </div>
-      {selected && (
-        <Autocomplete options={autocompletedOption} onSelect={handleSelect} />
+      {focused && (
+        <Autocomplete
+          options={autocompletedOption}
+          highlightedItem={highlightedSuggestion}
+          onSelect={handleSelect}
+        />
       )}
     </div>
   );

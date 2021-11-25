@@ -1,25 +1,23 @@
-import React, { useEffect, FC } from 'react';
+import React, { FC, useRef } from 'react';
 import cn from 'classnames';
 
-export const Autocomplete: FC<any> = ({ options, onSelect }) => {
+export const Autocomplete: FC<any> = ({
+  options,
+  highlightedItem,
+  onSelect,
+}) => {
+  const itemsRefs = useRef<HTMLElement[]>([]);
   // const prevIndex = usePrevious(highlightedItem);
 
-  // const handleSelect = (id: string) => {
-  //   onSelect(id);
-
-  // };
+  console.log(itemsRefs);
 
   return (
-    <ul
-      // ref={ref}
-      className={cn('autocomplete')}
-      role="listbox"
-      tabIndex={-1}
-    >
-      {options.map(({ id, name }) => (
+    <ul className={cn('autocomplete')} role="listbox" tabIndex={-1}>
+      {options.map(({ id, name }, idx) => (
         <li
+          ref={(ref) => (itemsRefs.current[id] = ref)}
           key={id + name}
-          // aria-selected={highlightedItem === index}
+          aria-selected={highlightedItem === idx}
           className={'option'}
           // data-test-id={`autocomplete-${index}`}
           onClick={onSelect(id)}
