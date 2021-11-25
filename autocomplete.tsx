@@ -4,6 +4,11 @@ import cn from 'classnames';
 export const Autocomplete: FC<any> = ({ options, onSelect }) => {
   // const prevIndex = usePrevious(highlightedItem);
 
+  // const handleSelect = (id: string) => {
+  //   onSelect(id);
+
+  // };
+
   return (
     <ul
       // ref={ref}
@@ -17,7 +22,7 @@ export const Autocomplete: FC<any> = ({ options, onSelect }) => {
           // aria-selected={highlightedItem === index}
           className={'option'}
           // data-test-id={`autocomplete-${index}`}
-          onClick={() => onSelect(id)}
+          onClick={onSelect(id)}
           role="option"
         >
           {name}

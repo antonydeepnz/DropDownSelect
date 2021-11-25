@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useMemo } from 'react';
+import React, { FC, useRef, useState, useMemo, useCallback } from 'react';
 import cn from 'classnames';
 
 import { Autocomplete } from './autocomplete';
@@ -37,8 +37,25 @@ export const DropDownSelect: FC<IProps> = ({
   };
 
   const autocompletedOption = useMemo(
-    () => options.filter(({ name }) => name.toLowerCase().match(autocomplete)),
+    () =>
+      options.filter(({ name }) =>
+        name.toLowerCase().match(autocomplete.toLowerCase())
+      ),
     [options, autocomplete]
+  );
+
+  const handleSelect = useCallback(
+    (id: string) => () => {
+      onChange(id);
+      setSelected(false);
+      setAutocomplete('');
+    },
+    []
+  );
+
+  const displayedValue = useMemo(
+    () => options.find(({ id }) => id === value)?.name,
+    [value]
   );
 
   return (
@@ -52,7 +69,6 @@ export const DropDownSelect: FC<IProps> = ({
         <input type="hidden" value={value} />
         <input
           ref={inputRef}
-          list="autocomplete"
           type="text"
           aria-selected={selected}
           value={autocomplete}
@@ -60,15 +76,19 @@ export const DropDownSelect: FC<IProps> = ({
           onChange={handleChange}
         />
         <p
-          className={cn('dropdownSelectInputPlaceholder', {
-            dropdownSelectInputPlaceholderHided: selected,
-          })}
+          className={cn(
+            'dropdownSelectInputPlaceholder',
+            {
+              dropdownSelectInputPlaceholderHided: selected && displayedValue,
+            },
+            { dropdownSelectInputPlaceholderValue: displayedValue }
+          )}
         >
-          {placeholder}
+          {displayedValue || placeholder}
         </p>
       </div>
       {selected && (
-        <Autocomplete options={autocompletedOption} onSelect={onChange} />
+        <Autocomplete options={autocompletedOption} onSelect={handleSelect} />
       )}
     </div>
   );
